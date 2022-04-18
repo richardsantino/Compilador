@@ -1,4 +1,11 @@
-TOKEN_TYPE:           
+OBS.:
+arrumar armazenazena-
+mento de numero float
+
+-*-
+
+TOKEN_TYPE:    
+-1: EOF       
 0: INT
 1: FLOAT
 2: OPERADOR
@@ -12,6 +19,7 @@ TOKEN_VALUE:
 3: MULTIPLICACAO
 4: DIVISAO
 5: ABRE PARENTESES
-6: FECHA ...
+6: FECHA PARENTESES
 7: START (RESERVADA)
-8: END ...
+8: END   (RESERVADA)
+9: NOTHING
