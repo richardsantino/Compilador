@@ -40,13 +40,8 @@ void adicionar_token(No_token** Tokens, token_type type, token_value value, int 
     }
 }
 
-No_token *get_proximo_token(No_token *Tokens, token_type *type, token_value *value, int *n){
+No_token *go_to_next_token(No_token *Tokens){
     No_token *aux = Tokens, *Tokens_updated = aux->prox;
-    
-    *type = aux->type;
-    *value = aux->value;
-    *n = aux->n;
-    
     free(aux);
     return Tokens_updated;
 }
@@ -242,7 +237,8 @@ No_token *lexer(void){
                 else{ // reconhece oque foi lido anteriormente
                     printf("Numero FLOAT(%s)\n", token_value);
 
-                    // number_float = strtod(token_value, NULL);
+                    if(token_value[0] == '-') adicionar_token(&Tokens, FLOAT, NUMERIC, -666);
+                    else adicionar_token(&Tokens, FLOAT, NUMERIC, 666); 
 
                     estado_atual = QINITIAL;
                     token_value[0] = '\n';
@@ -295,6 +291,10 @@ No_token *lexer(void){
                 }
                 else{ // reconhece oque foi lido anteriormente
                     printf("Numero FLOAT(%s)\n", token_value);
+
+                    if(token_value[0] == '-') adicionar_token(&Tokens, FLOAT, NUMERIC, -666);
+                    else adicionar_token(&Tokens, FLOAT, NUMERIC, 666); 
+                    
                     estado_atual = QINITIAL;
                     token_value[0] = '\0';
                     i--;
@@ -403,6 +403,7 @@ No_token *lexer(void){
         i++;
     }
 
+    adicionar_token(&Tokens, EOF, NOTHING, NO_LITERAL);
     printf("\n");
     return Tokens;
 }

@@ -6,7 +6,8 @@ typedef enum TOKEN_VALUE {
     NUMERIC,                    // INT e FLOAT
     SOMA, SUBT, MULT, DIV,      // OPERADOR
     ABRE_P, FECHA_P,            // PONTUACAO
-    START, END                  // PALAVRA RESERVADA
+    START, END,                 // PALAVRA RESERVADA
+    NOTHING                     // NADA
 } token_value;
 
 typedef struct no_token{
@@ -18,4 +19,4 @@ typedef struct no_token{
 
 No_token *lexer(void);
 void imprimir_tokens(No_token *Tokens);
-No_token *get_proximo_token(No_token *Tokens, token_type *type, token_value *value, int *n);
+No_token *go_to_next_token(No_token *Tokens);

@@ -1,19 +1,91 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "lexer.h"
+
+void programm(No_token *Tokens);
+No_token *read_START(No_token *Tokens);
+No_token *read_END(No_token *Tokens);
+No_token *read_NUMERIC(No_token *Tokens);
+
+// No_token *<>(No_token *Tokens);
 
 int main(void){
     No_token *Tokens = lexer();
 
-    int n;
-    token_type type;
-    token_value value;
+    printf("---------------\n\n");
 
-    printf("Lista dos Tokens (no formato que o parser vai ler)\n");
-    imprimir_tokens(Tokens);
+    programm(Tokens);
+    printf("PROGRAMM OK"); 
     
-    printf("\nComo as informacoes do Token vao aparecer\n"); 
-    Tokens = get_proximo_token(Tokens, &type, &value ,&n);
-    printf("%d(TIPO DO TOKEN) - %d(VALOR DO TOKEN) - %d(LITERAL(INT) DO TOKEN)\n", type, value, n);
-
     return 0;
 }
+
+void programm(No_token *Tokens){
+    // START
+    Tokens = read_START(Tokens);
+
+    // NUMERO
+    Tokens = read_NUMERIC(Tokens);
+
+    // END
+    Tokens = read_END(Tokens);
+}
+
+No_token *read_START(No_token *Tokens){
+    printf("* esperando por START *\n");
+    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n\n", Tokens->type, Tokens->value, Tokens->n);
+
+    if(Tokens->type == PALAVRA_RESERVADA && Tokens->value == START){ 
+        printf("OK\n\n");
+        return go_to_next_token(Tokens);
+    }
+    else{
+        printf("NOT OK\n\n");
+        exit(1);
+    }
+}
+
+No_token *read_END(No_token *Tokens){
+    printf("* esperando por END *\n");
+    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n", Tokens->type, Tokens->value, Tokens->n);
+
+    if(Tokens->type == PALAVRA_RESERVADA && Tokens->value == END){
+        printf("OK\n\n");
+        return go_to_next_token(Tokens);
+    }
+    else{
+        printf("NOT OK\n\n");
+        exit(1);
+    }
+}
+
+No_token *read_NUMERIC(No_token *Tokens){
+    printf("* esperando por NUMERO *\n");
+    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n", Tokens->type, Tokens->value, Tokens->n);
+
+    if((Tokens->type == INT || Tokens->type == FLOAT) && Tokens->value == NUMERIC){
+        printf("OK - %d\n\n", Tokens->n);
+        return go_to_next_token(Tokens);
+    }
+    else{
+        printf("NOT OK\n\n");
+        exit(1);
+    }
+}
+
+
+/*
+No_token *<>(No_token *Tokens){
+    printf("* esperando por <> *\n");
+    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n", Tokens->type, Tokens->value, Tokens->n);
+
+    if(Tokens->type == <> && Tokens->value == <>>){
+        printf("OK\n\n");
+        return go_to_next_token(Tokens);
+    }
+    else{
+        printf("NOT OK\n\n");
+        exit(1);
+    }
+}
+*/
