@@ -7,7 +7,6 @@ typedef enum TOKEN_VALUE {
     SOMA, SUBT, MULT, DIV,      // OPERADOR
     ABRE_P, FECHA_P,            // PONTUACAO
     START, END,                 // PALAVRA RESERVADA
-    NOTHING                     // NADA
 } token_value;
 
 typedef struct no_token{

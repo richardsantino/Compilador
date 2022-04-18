@@ -403,7 +403,6 @@ No_token *lexer(void){
         i++;
     }
 
-    adicionar_token(&Tokens, EOF, NOTHING, NO_LITERAL);
     printf("\n");
     return Tokens;
 }

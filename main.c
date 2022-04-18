@@ -29,11 +29,16 @@ void programm(No_token *Tokens){
 
     // END
     Tokens = read_END(Tokens);
+
+    if(Tokens != NULL){ // se ainda existir token depois do END
+        printf("NOT OK\n\n");
+        exit(1);
+    }
 }
 
 No_token *read_START(No_token *Tokens){
     printf("* esperando por START *\n");
-    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n\n", Tokens->type, Tokens->value, Tokens->n);
+    printf("lendo -> (type)<%d> (value)<%d> (literal)<%d>\n", Tokens->type, Tokens->value, Tokens->n);
 
     if(Tokens->type == PALAVRA_RESERVADA && Tokens->value == START){ 
         printf("OK\n\n");
