@@ -6,7 +6,7 @@ typedef enum TOKEN_VALUE {
     NUMERIC,                    // INT e FLOAT
     SOMA, SUBT, MULT, DIV,      // OPERADOR
     ABRE_P, FECHA_P,            // PONTUACAO
-    START, END,                 // PALAVRA RESERVADA
+    START, END, _INT, _FLOAT    // PALAVRA RESERVADA
 } token_value;
 
 typedef struct no_token{

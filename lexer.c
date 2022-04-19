@@ -121,7 +121,6 @@ No_token *lexer(void){
                     estado_atual = 2;
                     strncat(token_value, &expression[i], 1);
                 }
-
                 else if(expression[i] >= '0' && expression[i] <= '9'){ // -> q3 
                     estado_atual = 3;
                     strncat(token_value, &expression[i], 1);
@@ -136,6 +135,14 @@ No_token *lexer(void){
                 }
                 else if(expression[i] == 'S'){ // -> q13
                     estado_atual = 13;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else if(expression[i] == 'I'){ // -> q18
+                    estado_atual = 18;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else if(expression[i] == 'F'){ // -> q21
+                    estado_atual = 21;
                     strncat(token_value, &expression[i], 1);
                 }
                 else estado_atual = QREJECT; // transição invalida
@@ -392,7 +399,99 @@ No_token *lexer(void){
                 token_value[0] = '\0';
                 i--;
 
-                break;            
+                break;
+
+            case 18: // q18
+                if(expression[i] == 'N'){ // -> q19
+                    estado_atual = 19;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 19: // q19
+                if(expression[i] == 'T'){ // -> q20
+                    estado_atual = 20;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 20: // q20 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (INT))
+                printf("Palavra reservada(INT)\n");
+                adicionar_token(&Tokens, PALAVRA_RESERVADA, _INT, NO_LITERAL);
+
+                estado_atual = QSTART;
+                token_value[0] = '\0';
+                i--;
+
+                break;
+
+            case 21: // q21
+                if(expression[i] == 'L'){ // -> q22
+                    estado_atual = 22;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 22: // q22
+                if(expression[i] == 'O'){ // -> q23
+                    estado_atual = 23;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 23: // q23
+                if(expression[i] == 'A'){ // -> q24
+                    estado_atual = 24;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 24: // q24
+                if(expression[i] == 'T'){ // -> q25
+                    estado_atual = 25;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 25: // q25 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (FLOAT))
+                printf("Palavra reservada(FLOAT)\n");
+                adicionar_token(&Tokens, PALAVRA_RESERVADA, _FLOAT, NO_LITERAL);
+
+                estado_atual = QSTART;
+                token_value[0] = '\0';
+                i--;
+
+                break;
 
             default: // QREJECT (ESTADO DE REJEIÇÃO)
                 system("cls");
