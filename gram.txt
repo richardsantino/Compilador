@@ -1,4 +1,3 @@
-*------------*	18/04	*------------*
 <programm>  		::= (<func> <break_line>)* <START> <break_line> <block> <break_line> <END>
 <block>        		::= (<if_statement> | <while_statement> | <atribuition> | <fun_call>)+
 <if_statement> 		::= "IF(" <condition> ")" <break_line> <block> (<break_line> <else>)? "END IF" <break_line>
@@ -8,14 +7,14 @@
 <else>      		::= "ELSE" (<break_line> <fun_call> | <if_statement>)
 <num>       		::= [0-9]+
 <while_statement>	::= "WHILE(" <condition> ")" <break_line> <block> <break_line> "END WHILE" <break_line>
-<atribuition> 	    ::= <type> <name> ("=") (<data> | "\"" <name> "\"" | <fun_call>) <break_line>
+<atribuition> 	    ::= <type> <name> <ATTRIBUITION> (<data> | <fun_call>) <break_line>
 <type>				::= <INT> | <FLOAT> | <STRING>
 <name>				::= [a-z]+
-<func>				::= <type> <name> "(" <parameter> ")" <break_line> <block> <rturn> <break_line> "END FUNC"
-<parameter>			::= ((((<name> | <num>) ",")+)? (<name> | <num>))?
-<data>				::= <num> | <fun_call> | <name> | <exp>
-<fun_call>			::= <name> "(" <parameter> ")" <break_line>
-<rturn>				::= "RETURN" <data>
+<func>				::= <type> <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line> <block> <rturn> <break_line> "END FUNC"
+<parameter>			::= ((((<name> | <num>) <COMMA>)+)? (<name> | <num>))?
+<data>				::= <num> | <fun_call> | <name> | <exp> | <Q_MARKS> <name> <Q_MARKS>
+<fun_call>			::= <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line>
+<rturn>				::= <RETURN> <data>
 
 <exp> ::= <exp> "+" <term> | <exp> "-" <term> | <term>
 <term> ::= <term> "*" <power> | <term> "/" <power> | <power>
@@ -29,7 +28,15 @@
 <INT> ::= "INT"
 <FLOAT> ::= "FLOAT"
 <STRING> ::= "STRING"
+<OPEN_PARENTHESES> ::= "("
+<CLOSE_PARENTHESES> ::= ")"
+<COMMA> ::= ","
+<RETURN> ::= "RETURN"
+<Q_MARKS> ::= "\""
+<ATTRIBUITION> ::= "="
 
 <break_line> ::= "\n"
+	
+comcluidos:
 
-implementando: <func> (lexer)
+<type>, <rturn>, <fun_call>, <data>(sem expreções), <parameter>, <name>, <atribuition>, <num> 
