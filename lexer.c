@@ -117,7 +117,9 @@ No_token *lexer(void){
                     estado_atual = 1;
                     strncat(token_value, &expression[i], 1);
                 }
-                else if(expression[i] == '(' || expression[i] == ')'){ // -> q3
+                else if(expression[i] == '(' || expression[i] == ')' ||
+                     expression[i] == ',' || expression[i] == '\"' ||
+                     expression[i] == '='){ // -> q2
                     estado_atual = 2;
                     strncat(token_value, &expression[i], 1);
                 }
@@ -143,6 +145,14 @@ No_token *lexer(void){
                 }
                 else if(expression[i] == 'F'){ // -> q21
                     estado_atual = 21;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else if(expression[i] >= 'a' && expression[i] <= 'z'){ // -> q30
+                    estado_atual = 30;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else if(expression[i] == 'R'){ // -> q31
+                    estado_atual = 31;
                     strncat(token_value, &expression[i], 1);
                 }
                 else estado_atual = QREJECT; // transição invalida
@@ -183,6 +193,18 @@ No_token *lexer(void){
                 if(token_value[0] == '('){
                     printf("Pontuacao(Abre Parenteses)\n");
                     adicionar_token(&Tokens, PONTUACAO, ABRE_P, NO_LITERAL);
+                }
+                else if(token_value[0] == ','){
+                    printf("Pontuacao(Virgula)\n");
+                    adicionar_token(&Tokens, PONTUACAO, VIRGULA, NO_LITERAL);
+                }
+                else if(token_value[0] == '\"'){
+                    printf("Pontuacao(Aspas)\n");
+                    adicionar_token(&Tokens, PONTUACAO, ASPAS, NO_LITERAL);
+                }
+                else if(token_value[0] == '='){
+                    printf("Pontuacao(Atribuicao)\n");
+                    adicionar_token(&Tokens, PONTUACAO, ATRIBUICAO, NO_LITERAL);
                 }
                 else{
                     printf("Pontuacao(Fecha Parenteses)\n"), 
@@ -360,6 +382,10 @@ No_token *lexer(void){
                     estado_atual = 15;
                     strncat(token_value, &expression[i], 1);
                 }
+                else if(expression[i] == 'R') { // -> q26
+                    estado_atual = 26;
+                    strncat(token_value, &expression[i], 1);
+                }
                 else{ // transição invalida
                     estado_atual = QREJECT;
                     i--; 
@@ -486,6 +512,138 @@ No_token *lexer(void){
             case 25: // q25 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (FLOAT))
                 printf("Palavra reservada(FLOAT)\n");
                 adicionar_token(&Tokens, PALAVRA_RESERVADA, _FLOAT, NO_LITERAL);
+
+                estado_atual = QSTART;
+                token_value[0] = '\0';
+                i--;
+
+                break;
+
+            case 26: // q26
+                if(expression[i] == 'I') { // -> q27
+                    estado_atual = 27;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 27: // q27
+                if(expression[i] == 'N') { // -> q28
+                    estado_atual = 28;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 28: // q28
+                if(expression[i] == 'G') { // -> q29
+                    estado_atual = 29;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 29: // q29 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (STRING))
+                printf("Palavra reservada(STRING)\n");
+                adicionar_token(&Tokens, PALAVRA_RESERVADA, STRING, NO_LITERAL);
+
+                estado_atual = QSTART;
+                token_value[0] = '\0';
+                i--;
+
+                break;
+
+            case 30: // q30 (ESTADO DE ACEITAÇÃO DE INDENTIFICADOR NOME)
+                if(expression[i] >= 'a' && expression[i] <= 'z'){ //looping
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // reconhece oque foi lido anteriormente
+                    printf("Indentificador(%s)\n", token_value);
+
+                    adicionar_token(&Tokens, INDENTIFICADOR, NOME, NO_LITERAL);
+
+                    estado_atual = QINITIAL;
+                    token_value[0] = '\0';
+                    i--;
+                }
+
+                break;
+
+            case 31: // q31
+                if(expression[i] == 'E'){ // -> q32
+                    estado_atual = 32;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                }
+
+                break;
+
+            case 32: // q32
+                if(expression[i] == 'T'){ // -> q33
+                    estado_atual = 33;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                }
+
+                break;
+
+            case 33: // q33
+                if(expression[i] == 'U'){ // -> q34
+                    estado_atual = 34;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                }
+
+                break;
+
+            case 34: // q34
+                if(expression[i] == 'R'){ // -> q35
+                    estado_atual = 35;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                }
+
+                break;
+
+            case 35: // q35
+                if(expression[i] == 'N'){ // -> q36
+                    estado_atual = 36;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                }
+
+                break;
+
+            case 36: // q36 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (RETURN))
+                printf("Palavra reservada(RETURN)\n");
+                adicionar_token(&Tokens, PALAVRA_RESERVADA, RETURN, NO_LITERAL);
 
                 estado_atual = QSTART;
                 token_value[0] = '\0';

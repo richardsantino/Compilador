@@ -1,12 +1,15 @@
 typedef enum TOKEN_TYPE {
-    INT, FLOAT, OPERADOR, PONTUACAO, PALAVRA_RESERVADA
+    INT, FLOAT, OPERADOR, PONTUACAO, PALAVRA_RESERVADA, INDENTIFICADOR
 } token_type;
 
 typedef enum TOKEN_VALUE {
     NUMERIC,                    // INT e FLOAT
     SOMA, SUBT, MULT, DIV,      // OPERADOR
-    ABRE_P, FECHA_P,            // PONTUACAO
-    START, END, _INT, _FLOAT    // PALAVRA RESERVADA
+    ABRE_P, FECHA_P, VIRGULA,   // PONTUACAO
+    ASPAS, ATRIBUICAO,
+    START, END, _INT, _FLOAT,   // PALAVRA RESERVADA
+    STRING, RETURN,
+    NOME                       // INDENTIFICADOR
 } token_value;
 
 typedef struct no_token{
