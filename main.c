@@ -12,6 +12,8 @@ No_token *read_NUMERIC(No_token *Tokens);
 int main(void){
     No_token *Tokens = lexer();
 
+    if(Tokens == NULL) return -1;
+
     printf("---------------\n\n");
 
     programm(Tokens);

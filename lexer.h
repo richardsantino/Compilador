@@ -8,8 +8,10 @@ typedef enum TOKEN_VALUE {
     ABRE_P, FECHA_P, VIRGULA,   // PONTUACAO
     ASPAS, ATRIBUICAO,
     START, END, _INT, _FLOAT,   // PALAVRA RESERVADA
-    STRING, RETURN,
-    NOME                       // INDENTIFICADOR
+    STRING, RETURN, TRUE, 
+    FALSE, END_FUNC, MAIOR,
+    MENOR,
+    NOME                        // INDENTIFICADOR
 } token_value;
 
 typedef struct no_token{
