@@ -10,7 +10,10 @@ typedef enum TOKEN_VALUE {
     START, END, _INT, _FLOAT,   // PALAVRA RESERVADA
     STRING, RETURN, TRUE, 
     FALSE, END_FUNC, MAIOR,
-    MENOR,
+    MENOR, MAIOR_IGUAL,
+    MENOR_IGUAL, NEGADO,
+    DIF, EQU, IF, END_IF,
+    WHILE, END_WHILE,
     NOME                        // INDENTIFICADOR
 } token_value;
 
