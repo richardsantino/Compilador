@@ -13,7 +13,7 @@ typedef enum TOKEN_VALUE {
     MENOR, MAIOR_IGUAL,
     MENOR_IGUAL, NEGADO,
     DIF, EQU, IF, END_IF,
-    WHILE, END_WHILE,
+    WHILE, END_WHILE, ELSE,
     NOME                        // INDENTIFICADOR
 } token_value;
 

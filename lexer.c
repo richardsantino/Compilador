@@ -16,6 +16,7 @@ void remove_spaces(char *s){
     char *d = s;
     do{
         while(*d == ' ') ++d;
+        while(*d == '\n') ++d;
     } while (*s++ = *d++);
 }
 
@@ -60,17 +61,30 @@ No_token *lexer(void){
     printf("Lexer\n");
     No_token *Tokens = NULL;
 
-    char expression[MAX_NUM_EXPRESSION], token_value[MAX_NUM_TOKEN_VALUE] = "";
+    // char expression[MAX_NUM_EXPRESSION], token_value[MAX_NUM_TOKEN_VALUE] = "";
+    char *expression, token_value[MAX_NUM_TOKEN_VALUE] = "";
     int estado_atual = QSTART, i = 0;
+    FILE *textfile;
+    long numbytes;
 
     //aux
     int number_int;
     float number_float;
 
-    printf("Digite a expressao:\n");
-    gets(expression);
-    remove_spaces(expression);
+    // read code in txt
+    textfile = fopen("code.txt", "r");
+    if(textfile == NULL) return NULL;
+    fseek(textfile, 0L, SEEK_END);
+    numbytes = ftell(textfile);
+    fseek(textfile, 0L, SEEK_SET);
+    expression = (char*)calloc(numbytes, sizeof(char));
+    if(expression == NULL) return NULL;
+    fread(expression, sizeof(char), numbytes, textfile);
+    fclose(textfile);
+    // printf(expression);
     strncat(expression, "#", 1);
+    remove_spaces(expression);
+
     printf("\n");
 
     while(expression[i] != '\0'){
@@ -351,6 +365,10 @@ No_token *lexer(void){
             case 10: // q10
                 if(expression[i] == 'N') { // -> q11
                     estado_atual = 11;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else if(expression[i] == 'L'){ // -> q64
+                    estado_atual = 64;
                     strncat(token_value, &expression[i], 1);
                 }
                 else{ // transição invalida
@@ -1021,9 +1039,44 @@ No_token *lexer(void){
                 i--;
 
                 break;
+            
+            case 64: // q64
+                if(expression[i] == 'S') { // -> q65
+                    estado_atual = 65;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 65: // q65
+                if(expression[i] == 'E') { // -> q66
+                    estado_atual = 66;
+                    strncat(token_value, &expression[i], 1);
+                }
+                else{ // transição invalida
+                    estado_atual = QREJECT;
+                    i--; 
+                } 
+            
+                break;
+
+            case 66: // q66 (ESTADO DE ACEITAÇÃO DE PALAVRA RESERVADA (ELSE))
+                printf("Palavra reservada(ELSE)\n");
+                adicionar_token(&Tokens, PALAVRA_RESERVADA, ELSE, NO_LITERAL);
+                
+                estado_atual = QSTART;
+                token_value[0] = '\0';
+                i--;
+
+                break;
 
             default: // QREJECT (ESTADO DE REJEIÇÃO)
                 //system("cls");
+                printf("%s", expression);
                 printf("Erro Lexico \n");
                 return NULL;
         }
