@@ -4,7 +4,7 @@
 <condition> 		::= (<NEGATE>? <boolean>) | (<data> <comp> <data>)
 <boolean>			::= <TRUE> | <FALSE>
 <comp> 				::= <EQUAL> | <NOT_EQUAL> | <EQUAL_GREATER> | <EQUAL_LOWER> | <GREATER> | <LOWER>
-<else>      		::= <ELSE> (<break_line> <fun_call> | <if_statement>)
+<else>      		::= <ELSE> (<break_line> <fun_call> | <if_statement> | <break_line> <block>)
 <num>       		::= [0-9]+
 <while_statement>	::= <WHILE> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> <break_line> <END_WHILE> <break_line>
 <atribuition> 	    ::= <type> <name> <ATTRIBUITION> (<data> | <fun_call>) <break_line>
@@ -79,4 +79,24 @@ __<rturn>		::= <RETURN> <data>
 * ------------- *
 
 build parser now
-	
+
+
+<programm>  			::= (<func> <break_line>)* <START> <break_line> <block> <break_line> <END>
+<block>        			::= (<if_statement> | <while_statement> | <atribuition> | <fun_call>)+
+<if_statement> 			::= <IF> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> (<break_line> <else>)? <END_IF> <break_line>
+__<condition> 			::= (<NEGATE>? <boolean>) | (<data> <comp> <data>)
+__<boolean>			::= <TRUE> | <FALSE>
+__<comp> 			::= <EQUAL> | <NOT_EQUAL> | <EQUAL_GREATER> | <EQUAL_LOWER> | <GREATER> | <LOWER>
+<else>      			::= <ELSE> <break_line> <block>
+__<num>       			::= [0-9]+
+_almost_ <while_statement>	::= <WHILE> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> <break_line> <END_WHILE> <break_line>
+    |_ not implemented -> block
+__<atribuition> 		::= <type> <name> <ATTRIBUITION> <data> <break_line>
+__<type>			::= <INT> | <FLOAT> | <STRING>
+__<name>			::= [a-z]+
+_almost_<func>			::= <type> <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line> <block> <rturn> <break_line> <END_FUNC>
+    |_ not implemented -> block
+__<parameter>			::= ((((<name> | <num>) <COMMA>)+)? (<name> | <num>))?
+__<data>			::= <num> | <fun_call> | <name> | <exp> | <Q_MARK> <name> <Q_MARK>
+__<fun_call>			::= <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line>
+__<rturn>			::= <RETURN> <data>
