@@ -1,85 +1,4 @@
 <programm>  		::= (<func> <break_line>)* <START> <break_line> <block> <break_line> <END>
-<block>        		::= (<if_statement> | <while_statement> | <atribuition> | <fun_call>)+
-<if_statement> 		::= <IF> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> (<break_line> <else>)? <END_IF> <break_line>
-<condition> 		::= (<NEGATE>? <boolean>) | (<data> <comp> <data>)
-<boolean>			::= <TRUE> | <FALSE>
-<comp> 				::= <EQUAL> | <NOT_EQUAL> | <EQUAL_GREATER> | <EQUAL_LOWER> | <GREATER> | <LOWER>
-<else>      		::= <ELSE> (<break_line> <fun_call> | <if_statement> | <break_line> <block>)
-<num>       		::= [0-9]+
-<while_statement>	::= <WHILE> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> <break_line> <END_WHILE> <break_line>
-<atribuition> 	    ::= <type> <name> <ATTRIBUITION> <data> <break_line>
-<type>				::= <INT> | <FLOAT> | <STRING>
-<name>				::= [a-z]+
-<func>				::= <type> <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line> <block> <rturn> <break_line> <END_FUNC>
-<parameter>			::= ((((<name> | <num>) <COMMA>)+)? (<name> | <num>))?
-<data>				::= <num> | <fun_call> | <name> | <exp> | <Q_MARK> <name> <Q_MARK>
-<fun_call>			::= <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line>
-<rturn>				::= <RETURN> <data>
-
-
-
-<START> ::= "START"
-<END> ::= "END"
-<INT> ::= "INT"
-<FLOAT> ::= "FLOAT"
-<STRING> ::= "STRING"
-<OPEN_PARENTHESES> ::= "("
-<CLOSE_PARENTHESES> ::= ")"
-<COMMA> ::= ","
-<RETURN> ::= "RETURN"
-<Q_MARK> ::= "\""
-<ATTRIBUITION> ::= "="
-<TRUE> ::= "TRUE"
-<FALSE> ::= "FALSE"
-<END_FUNC> ::= "END FUNC"
-<EQUAL> ::= "=="
-<NOT_EQUAL> ::= "!="
-<NEGATE> ::= "!"
-<EQUAL_GREATER> ::= ">="
-<EQUAL_LOWER> ::= "<="
-<GREATER> ::= ">"
-<LOWER> ::= "<"
-<IF> ::= "IF"
-<END_IF> ::= "END IF"
-<ELSE> ::= "ELSE"
-<WHILE> ::= "WHILE"
-<END_WHILE> ::= "END WHILE"
-<SUM> ::= "+"
-<SUB> ::= "-"
-<DIV> ::= "/"
-<MUL> ::= "*"
-
-<break_line> ::= "\n"
-
-
-* ------------- *
-
-__ -> renconhecivel pelo lexer
-
-__<programm>  		::= (<func> <break_line>)* <START> <break_line> <block> <break_line> <END>
-__<block>        	::= (<if_statement> | <while_statement> | <atribuition> | <fun_call>)+
-__<if_statement> 	::= <IF> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> (<break_line> <else>)? <END_IF> <break_line>
-__<condition> 		::= (<NEGATE>? <boolean>) | (<data> <comp> <data>)
-__<boolean>		::= <TRUE> | <FALSE>
-__<comp> 		::= <EQUAL> | <NOT_EQUAL> | <EQUAL_GREATER> | <EQUAL_LOWER> | <GREATER> | <LOWER>
-__<else>      		::= <ELSE> (<break_line> <block>)
-__<num>       		::= [0-9]+
-__<while_statement>	::= <WHILE> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> <break_line> <END_WHILE> <break_line>
-__<atribuition> 	::= <type> <name> <ATTRIBUITION> <data> <break_line>
-__<type>		::= <INT> | <FLOAT> | <STRING>
-__<name>		::= [a-z]+
-__<func>		::= <type> <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line> <block> <rturn> <break_line> <END_FUNC>
-__<parameter>		::= ((((<name> | <num>) <COMMA>)+)? (<name> | <num>))?
-__<data>		::= <num> | <fun_call> | <name> | <exp> | <Q_MARK> <name> <Q_MARK>
-__<fun_call>		::= <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line>
-__<rturn>		::= <RETURN> <data>
-
-
-* ------------- *
-
-build parser now
-
-<programm>  		::= (<func> <break_line>)* <START> <break_line> <block> <break_line> <END>
 <block>        		::= (<if_statement> | <while_statement> | <atribuition> | <atribuition_exist> | <fun_call> | <func>)+
 <if_statement> 		::= <IF> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> (<break_line> <else>)? <END_IF> <break_line>
 <condition> 		::= (<NEGATE>? <boolean>) | (<data> <comp> <data>)
@@ -90,7 +9,7 @@ build parser now
 <while_statement>	::= <WHILE> <OPEN_PARENTHESES> <condition> <CLOSE_PARENTHESES> <break_line> <block> <break_line> <END_WHILE> <break_line>
 <atribuition> 		::= <type> <name> <ATTRIBUITION> <data> <break_line>
 <atribuition_exist>	::= <name> <ATTRIBUITION> <data> <break_line>
-<type>			::= <INT> | <FLOAT> | <STRING>
+<type>				::= <INT> | <FLOAT> | <STRING>
 <name>			::= [a-z]+
 <func>			::= <type> <name> <OPEN_PARENTHESES> <parameter> <CLOSE_PARENTHESES> <break_line> <block> <rturn> <break_line> <END_FUNC>
 <parameter>		::= ((((<name> | <num> | <data>) <COMMA>)+)? (<name> | <num>))?
@@ -131,3 +50,5 @@ build parser now
 <SUB> ::= "-"
 <DIV> ::= "/"
 <MUL> ::= "*"
+
+<break_line> ::= "\n"
