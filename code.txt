@@ -1,4 +1,7 @@
 START
-WHILE(sum(a,b) >= -1)
+INT i = 1
+WHILE(i <= 10)
+print(i)
+i = i + 1
 END WHILE
 END

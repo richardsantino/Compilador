@@ -58,7 +58,7 @@ void imprimir_tokens(No_token *Tokens){
 
 No_token *lexer(void){
     system("cls");
-    printf("Lexer\n");
+    printf("------- LEXER TOKENS -------\n");
     No_token *Tokens = NULL;
 
     // char expression[MAX_NUM_EXPRESSION], token_value[MAX_NUM_TOKEN_VALUE] = "";

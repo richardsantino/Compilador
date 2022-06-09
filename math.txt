@@ -1,0 +1,9 @@
+FLOAT custommath(a,b)
+FLOAT valor = (a+b*4/(2.5))/2
+RETURN valor
+END FUNC
+
+START
+FLOAT math = custommath(1,2)
+print(soma)
+END
